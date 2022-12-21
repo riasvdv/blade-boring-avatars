@@ -5,11 +5,13 @@ class Helper
 {
     public static function getNumber(string $string) : int
     {
-        $string = str_split($string);
+        $parts = str_split($string);
+
         $charactersCodesSum = 0;
-        foreach ($string as $char) {
+
+        foreach ($parts as $char) {
             $char = mb_substr($char, 0);
-            list(, $ret) = unpack('S', mb_convert_encoding($char, 'UTF-16LE'));
+            [, $ret] = unpack('S', mb_convert_encoding($char, 'UTF-16LE'));
             $charactersCodesSum += $ret;
         }
 
@@ -32,7 +34,7 @@ class Helper
 
     public static function getDigit(int $number, int $ntn) : int
     {
-        return floor(($number / pow(10, $ntn)) % 10);
+        return floor(($number / (10 ** $ntn)) % 10);
     }
 
     public static function getContrast(string $color) : string

@@ -1,18 +1,19 @@
 <?php
 namespace KhaledSadek\BladeBoringAvatars\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use KhaledSadek\BladeBoringAvatars\Helper;
 
 class Avatar extends Component
 {
-    public $colors;
-    public $size;
-    public $name;
+    public array $colors;
+    public int $size;
+    public string $name;
 
-    protected $numberFromName;
+    protected int $numberFromName;
 
-    public $avatarData = [];
+    public array $avatarData = [];
 
     public function __construct(int $size = 40, string $name = "Clara Barton", ?array $colors = null)
     {
@@ -27,14 +28,14 @@ class Avatar extends Component
         ];
     }
 
-    public function render()
+    public function render(): View
     {
         $this->generateData();
 
         return view('blade-boring-avatars::avatar');
     }
 
-    public function generateData()
+    public function generateData(): void
     {
         $this->numberFromName = Helper::getNumber($this->name);
 
